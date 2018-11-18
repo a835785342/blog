@@ -1,0 +1,39 @@
+header{
+    margin-bottom: 60px;
+}
+/*导航条设置*/
+.header{
+    font-size: 17px;
+}
+
+/*首页个人信息*/
+#personalInformation{
+    background-color: #ffffff;
+    margin-top: 20px;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    height: 100px
+}
+
+#personalInformation div{
+    text-align: center;
+    float: left;
+    margin-top: 25px ;
+    margin-left: 3%;
+    width: 16%;
+}
+
+#personalInformation a{
+    text-decoration: none;
+}
+
+.jinrishici{
+    margin-top: 20px;
+    padding-top: 25px;
+    height: 50px;
+    text-align: center;
+}
+#search-form span:hover{
+    cursor:pointer;
+    color:#CC560E;
+}

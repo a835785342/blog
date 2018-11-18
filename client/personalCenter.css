@@ -1,0 +1,17 @@
+
+
+.personal-picture{
+    margin-top: 20px;
+    text-align: center;
+}
+.personal-picture img{
+    width: 100px;
+    height: 100px
+}
+.personal-username{
+    text-align: center;
+}
+
+.personal-button{
+    text-align: center;
+}

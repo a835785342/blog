@@ -1,0 +1,97 @@
+<head>
+
+</head>
+<template name="masterLayout">
+    <header>
+        <section class="header">
+            <!--导航条-->
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;首页</a>
+                        </li>
+                        <li><a href="#"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp;热门</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse collapse navbar-right">
+
+                        <ul class="nav navbar-nav">
+                            {{> loginButtons}}
+                        </ul>
+                    </div>
+                    <form class="navbar-form navbar-right" id="search-form" onsubmit="return false">
+                        <div class="form-group">
+                            <input type="text" class="form-control search-input" placeholder="搜索">
+                        </div>
+                        <span class="glyphicon glyphicon-search search-span"
+                              style="margin-left: -30px;vertical-align: middle"></span>
+                    </form>
+
+
+                </div>
+
+            </nav>
+        </section>
+
+    </header>
+    <body>
+    {{>yield "personalInformationHead"}}
+    <div class="container">
+        {{>yield "left"}}
+        {{>yield}}
+    </div>
+    </body>
+
+</template>
+
+<!--左边内容-->
+<template name="left">
+    <div class="col-md-4">
+        {{>personalInformation}}
+    </div>
+
+</template>
+
+<!--个人信息-->
+<template name="personalInformation">
+
+    {{#if pi}}
+        <div id="personalInformation">
+            <div id="attentions">
+                <a href="/personalCenter/{{pi._id}}">
+                    {{pi.profile.attentions.length}}<br>
+                    关注
+                </a>
+
+            </div>
+            <div>
+                <hr style="width:1px;height:30px;background-color:#efefef;margin-top: 3px">
+            </div>
+
+            <div id="blogs">
+                <a href="/personalCenter/{{pi._id}}">
+                    {{pi.profile.blogs.length}}<br>
+                    微博
+                </a>
+
+            </div>
+            <div>
+                <hr style="width:1px;height:30px;background-color:#efefef;margin-top: 3px">
+            </div>
+            <div id="fans">
+                <a href="/personalCenter/{{pi._id}}">
+                    {{pi.profile.fans.length}}<br>
+                    粉丝
+                </a>
+
+            </div>
+        </div>
+    {{/if}}
+    <div class="jinrishici">
+        <img alt="今日诗词" src="https://v2.jinrishici.com/one.svg">
+    </div>
+
+</template>
+<template name="_loginButtonsAdditionalLoggedInDropdownActions">
+    <button class="btn btn-default btn-block" id="login-buttons-edit-profile">个人中心</button>
+</template>

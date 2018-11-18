@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "buffer": "^5.2.1",
+    "emojionearea": "^3.0.0",
+    "fs": "0.0.1-security",
+    "jquery": "^1.12.1",
+    "meteor-node-stubs": "^0.4.1",
+    "moment": "^2.22.2",
+    "simpl-schema": "^1.4.3",
+    "toastr": "^2.1.4"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  }
+}

@@ -1,0 +1,30 @@
+.search-nav{
+    margin-top: 20px;
+}
+
+.blog .main-context{
+    margin-top: 10px;
+}
+
+#search-blogs .blog .glyphicon-chevron-down{
+    font-size: 10px;
+    color: #918ea5;
+    position:relative;
+    left: 91%;
+    top: 15px;
+}
+
+#search-blogs .blog .glyphicon-chevron-down:hover{
+    font-size: 10px;
+    cursor:pointer;
+    color: #CC560E;
+    position:relative;
+    left: 91%;
+    top: 15px;
+}
+
+#search-blogs .dropdown-menu{
+     position:absolute;
+     left: 83%;
+     top: 27px;
+ }

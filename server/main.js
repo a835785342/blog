@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import '../collections/blog.js';
-
+import {topics} from "../collections/topic.js";
 const fs=require('fs');
 Meteor.startup(() => {
 
@@ -43,7 +43,42 @@ Meteor.methods({
             return "data:image/"+suffixFileName+";base64,"+result;
         }
 
+    },
+    upsertTopic:function (blogContext,blogID) {
+        const re=/(?<=#).+?(?=#)/g;
+        const topicName=re.exec(blogContext);
+        const time = new Date();
+        if(topicName[0]!=undefined){
+            if(topics.findOne({name:topicName[0]})===undefined){
+                var ablogID=new Array(blogID);
+                topics.insert({
+                    name:topicName[0],
+                    hostID:Meteor.userId(),
+                    hostName:Meteor.user().username,
+                    ablogID:ablogID,
+                    createTime:time,
+                    candidatePerson:new Array()
+                })
+            }else{
+                topics.update({name:topicName[0]},{$push:{'ablogID':blogID}});
+            }
+        }
+
+    },
+    deleteTopic:function (blogContext,blogID) {
+        const re=/(?<=#).+?(?=#)/g;
+        const topicName=re.exec(blogContext);
+        if(topicName[0]!=undefined){
+            topics.update({name:topicName[0]},{$pull:{ablogID:blogID}});
+            const topic = topics.findOne({name: topicName[0]});
+            if(topic.ablogID.length==0){
+                topics.remove({name:topicName[0]});
+                console.log("删除话题"+topicName[0]+"成功！");
+            }
+        }
+
     }
+
 });
 
 //创建用户时自动填充头像

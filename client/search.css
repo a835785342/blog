@@ -28,3 +28,9 @@
      left: 83%;
      top: 27px;
  }
+
+
+#search-topics a{
+    margin-left: 20px;
+    text-decoration: none;
+}

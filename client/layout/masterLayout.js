@@ -17,7 +17,8 @@ accountsUIBootstrap3.setCustomSignupOptions = function () {
             display_picture: "/imgs/blogHead.jpg",
             fans: new Array(),
             blogs: new Array(),
-            attentions: new Array()
+            attentions: new Array(),
+            followTopics:new Array()
         }
     }
 };
@@ -59,6 +60,14 @@ Template.masterLayout.events({
             $(".search-input").val("");
         }
 
+    },
+    'click .home':function () {
+        $('.topic').removeClass('active');
+        $('.home').addClass('active');
+    },
+    'click .topic':function () {
+        $('.home').removeClass('active');
+        $('.topic').addClass('active');
     }
 });
 

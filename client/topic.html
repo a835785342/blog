@@ -1,0 +1,135 @@
+<template name="topic">
+    <div class="grid">
+        {{#each allTopics}}
+            <div class="grid-item">
+                <!--<small class="latestTime">2018-12-30</small>-->
+                <h4>{{name}}</h4>
+                {{currentTopicBlogContext}}
+                {{#if hasImg hasImage }}
+                    <img src="{{currentTopicBlogImg}}" width="200px">
+                {{/if}}
+                <div class="button-group">
+                    {{#if isFollow _id}}
+                        <button type="button" class="btn btn-danger followTopic" data-id="{{_id}}">取消关注</button>
+                    {{else}}
+                        <button type="button" class="btn btn-primary followTopic" data-id="{{_id}}">关注话题</button>
+                    {{/if}}
+                    <button type="button" class="btn enterTopic" data-id="{{_id}}">进入话题</button>
+                </div>
+
+
+            </div>
+        {{/each}}
+
+    </div>
+</template>
+
+<template name="topicItem">
+    <div class="topicHeader">
+        {{#with header}}
+            <h3>#{{name}}#</h3>
+            {{#if isHost}}
+                <button class="btn btn-default btn-sm " disabled="disabled">你已经是主持人</button>
+            {{else}}
+                {{#if isApplyHost}}
+                    <button class="btn btn-danger btn-sm canelApplyHost">取消申请主持人</button>
+                {{else}}
+                    <button class="btn btn-sm applyHost">申请主持人</button>
+                {{/if}}
+            {{/if}}
+            <small style="color: #bababa" class="topicCreateTime">话题创建时间：{{createTime}}</small>
+        {{/with}}
+    </div>
+    {{#each topics}}
+        <div class="topicContext">
+            <img id="head-picture" src="{{display_picture}}" width="50px" height="50px" class="img-circle" alt="#"
+                 style="float: left"/>
+            {{#if isMe user_id}}
+                <div class="dropdown" style="visibility: visible">
+                    <span class="glyphicon glyphicon-chevron-down dropdown-toggle blog-assist" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="true"></span>
+                    <ul class="dropdown-menu" aria-labelledby="blog-assist">
+                        <li><a href="#" class="deleteBlog-a" data-toggle="modal" data-target=".deleteBlog-modal"
+                               data-blogid="{{_id}}">删除微博</a></li>
+                        <li><a href="#" class="updateBlog-a" data-toggle="modal" data-target=".updateBlog-modal"
+                               data-blogid="{{_id}}">更新微博</a></li>
+                    </ul>
+
+                </div>
+            {{else}}
+                <div class="dropdown" style="visibility: hidden">
+                    <span class="glyphicon glyphicon-chevron-down dropdown-toggle blog-assist" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="true"></span>
+                    <ul class="dropdown-menu" aria-labelledby="blog-assist">
+                        <li><a href="#" class="deleteBlog-a" data-toggle="modal" data-target=".deleteBlog-modal"
+                               data-blogid="{{_id}}">删除微博</a></li>
+                        <li><a href="#" class="updateBlog-a" data-toggle="modal" data-target=".updateBlog-modal"
+                               data-blogid="{{_id}}">更新微博</a></li>
+                    </ul>
+
+                </div>
+            {{/if}}
+            <div class="blog-person-information">
+                <strong><a href="/personalCenter/{{user_id}}">{{userName}}</a></strong><br>
+                <small style="color: #bababa">{{createTime}}</small>
+            </div>
+            <div class="main-context" style="">
+                <p>{{blogContext}}</p>
+                <div class="container-fluid" style="margin-left: -30px">
+                    {{#each imgs}}
+                        <img class="blog-picture col-md-4" src="{{this}}" width="150px" height="150px"
+                             onerror="javascript:this.src='imgs/load-picture.gif';"/>
+                    {{/each}}
+                </div>
+            </div>
+
+        </div>
+    {{/each}}
+    <!--删除微博模态框-->
+    <div class="modal fade deleteBlog-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    确认删除这条微博？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-danger deleteBlog-btn">是</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--修改微博模态框-->
+    <div class="modal fade updateBlog-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    修改微博
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control " id="modal-blogContext" style="resize: none"></textarea>
+                        </div>
+                    </div>
+                    <div style="height: 34px">
+                        <a href="#" id="modal-chooseTopic" class="btn btn-small">话题</a>
+                        <a href="#" id="modal-uploadImg" class="btn btn-small">图片</a>
+                        <div class="modal-thumbnail-img">
+                            <h4 style="margin-left: 10px">当前图片</h4>
+                            <a style="position: absolute;top: 10px;right: 5px;cursor: pointer"><span
+                                    class="glyphicon glyphicon-remove"></span></a>
+                        </div>
+                        <input type="file" style="display:none" id="modal-uploadImg1" accept="image/*"
+                               multiple="multiple">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">否</button>
+                    <button type="button" class="btn btn-danger updateBlog-btn">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

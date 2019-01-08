@@ -5,6 +5,7 @@
     <ul class="nav nav-pills nav-justified search-nav">
         <li role="presentation" class="active" ><a href="#search-blogs" aria-controls="search-blogs" role="tab" data-toggle="tab">微博</a></li>
         <li role="presentation"><a href="#search-users" aria-controls="search-users" role="tab" data-toggle="tab">用户</a></li>
+        <li role="presentation"><a href="#search-topics" aria-controls="search-topics" role="tab" data-toggle="tab">话题</a></li>
     </ul>
 
     <div class="tab-content">
@@ -75,7 +76,7 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <textarea class="form-control " id="search-modal-blogContext" style="resize: none"></textarea>
+                                    <textarea class="form-control " id="modal-blogContext" style="resize: none"></textarea>
                                 </div>
                             </div>
                             <div style="height: 34px">
@@ -107,6 +108,8 @@
         </div>
     {{/if}}
         </div>
+
+        <!--搜索用户div-->
         <div role="tabpanel" class="tab-pane fade" id="search-users">
             {{#if users}}
                 {{#each users}}
@@ -128,5 +131,28 @@
                 </div>
             {{/if}}
         </div>
+        <!--搜索用户div结束-->
+
+        <!--搜索话题div-->
+        <div role="tabpanel" class="tab-pane fade" id="search-topics">
+            {{#if topics}}
+                {{#each topics}}
+                    <div class="blog">
+                        <h4><a href="/topic/{{_id}}">#{{name}}#</a></h4>
+                    </div>
+                {{/each}}
+            {{else}}
+                <div class="blog">
+                    <div class="main-context">
+                        <p>找不到相应的话题</p>
+                        <dl>
+                            <dt><strong>建议：</strong></dt>
+                            <dd>您可以尝试更换关键词，再次搜索。</dd>
+                        </dl>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+        <!--搜索话题div结束-->
     </div>
 </template>

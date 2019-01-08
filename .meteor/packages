@@ -28,4 +28,6 @@ stylus
 ian:accounts-ui-bootstrap-3
 accounts-password
 iron:router
-gwendall:ui-hooks
+nikogosovd:multiple-uihooks
+mrt:jquery-masonry
+iamkevingreen:imagesloaded

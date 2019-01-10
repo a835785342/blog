@@ -9,6 +9,7 @@ import '../static/js/zoomify.min.js';
 import './personalCenter.js';
 import './search.js';
 import './topic.js';
+import './admin.js';
 import * as toastr from "toastr";
 import { Session } from 'meteor/session'
 import { _ } from 'meteor/underscore';
@@ -19,6 +20,7 @@ import "emojionearea/dist/emojionearea.js";
 import {Meteor} from "meteor/meteor";
 import "./blogUtil.js";
 import {topics} from "../collections/topic";
+
 
 
 Template.publicBlog.onRendered(function () {

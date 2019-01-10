@@ -7,25 +7,34 @@
             <!--导航条-->
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
-                    <ul class="nav navbar-nav">
-                        <li class="active home"><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;首页</a>
-                        </li>
-                        <li class="topic"><a href="/topic"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;话题</a>
-                        </li>
-                    </ul>
-                    <div class="navbar-collapse collapse navbar-right">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#indexHeader" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
 
+                    <div class="navbar-collapse collapse " id="indexHeader">
                         <ul class="nav navbar-nav">
+                            <li class="active home"><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;首页</a>
+                            </li>
+                            <li class="topic"><a href="/topic"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;话题</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
                             {{> loginButtons}}
                         </ul>
+                        <form class="navbar-form navbar-right" id="search-form" onsubmit="return false">
+                            <div class="form-group">
+                                <input type="text" class="form-control search-input" placeholder="搜索">
+                            </div>
+                            <span class="glyphicon glyphicon-search search-span"
+                                  style="margin-left: -30px;vertical-align: middle"></span>
+                        </form>
                     </div>
-                    <form class="navbar-form navbar-right" id="search-form" onsubmit="return false">
-                        <div class="form-group">
-                            <input type="text" class="form-control search-input" placeholder="搜索">
-                        </div>
-                        <span class="glyphicon glyphicon-search search-span"
-                              style="margin-left: -30px;vertical-align: middle"></span>
-                    </form>
+
 
 
                 </div>

@@ -2,6 +2,7 @@ import '../client/layout/masterLayout.html';
 import '../client/personalCenter.html';
 import '../client/search.html';
 import '../client/topic.html';
+import '../client/admin.html';
 Router.configure({
     layoutTemplate:'masterLayout'
 });
@@ -46,4 +47,15 @@ Router.route('/topic/',function () {
 
 Router.route('/topic/:topicID',function () {
     this.render("topicItem");
+});
+
+Router.route('/admin/',function () {
+    this.layout('');
+    if(Session.equals('isAdminLogin',1)){
+        this.layout('admin');
+        this.render('adminUser');
+    }else{
+        this.render('adminLogin');
+    }
+
 });

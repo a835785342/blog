@@ -1,4 +1,4 @@
-
+*{margin:0;padding:0;}
 
 body {
   font-family: sans-serif;
@@ -58,7 +58,7 @@ body {
   content: "";
   position: absolute;
   bottom: 100%;
-  left: 10%;
+  left: 17%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;

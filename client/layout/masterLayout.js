@@ -18,8 +18,10 @@ accountsUIBootstrap3.setCustomSignupOptions = function () {
             fans: new Array(),
             blogs: new Array(),
             attentions: new Array(),
-            followTopics:new Array()
+            followTopics:new Array(),
+            status:"normal"
         }
+
     }
 };
 

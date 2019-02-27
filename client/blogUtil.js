@@ -199,7 +199,17 @@ closeBlogImg=function (event) {
 
 //获取话题名称
 function getTopicName(blogContext) {
-    const re=/(?<=#).+?(?=#)/g;
+    // const re=/(?<=#).+?(?=#)/g;
+    let re=null;
+    try {
+        re = new RegExp('\(?<=#).+?(?=#)','g');
+    }catch (e) {
+        re = new RegExp('\(?<=#).+?(?=#)','g');
+    }
+
+    // console.log(re);
+    // console.log(re2);
+
     const topicName=re.exec(blogContext);
     return topicName[0];
 }

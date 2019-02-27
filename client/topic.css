@@ -3,88 +3,93 @@ body {
     background-color: #F5F6F7;
 }
 
-.grid{
+.grid {
     margin-left: 100px;
     margin-top: 20px;
 }
-.grid-item { width: 250px; }
-.grid-item {
-     margin-bottom: 20px;
-     padding-left:  20px;
-     padding-right:  20px;
-     padding-bottom:  20px;
-     float: left;
-     background-color: #ffffff;
-     border: 1px solid #efefef;
-     /*border-color: hsla(0, 0%, 0%, 0.5);*/
-     border-radius: 5px;
- }
 
-.grid-item img{
+.grid-item {
+    width: 250px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    float: left;
+    background-color: #ffffff;
+    border: 1px solid #efefef;
+    word-wrap:break-word;
+    word-break:break-all;
+    /*overflow: hidden;*/
+    /*border-color: hsla(0, 0%, 0%, 0.5);*/
+    border-radius: 5px;
+}
+
+.grid-item img {
     margin-bottom: 20px;
 }
 
-.grid-item small{
+.grid-item small {
     position: absolute;
     left: 60%;
     top: 10px;
     color: #bababa;
 }
 
-.button-group{
+.button-group {
     width: 200px;
 }
 
-.topicHeader,.topicContext{
+.topicHeader, .topicContext {
     background-color: #ffffff;
     margin-top: 20px;
     border: 1px solid #efefef;
 }
-.topicHeader h3{
+
+.topicHeader h3 {
     display: inline-block;
     margin-left: 20px;
     margin-right: 20px;
 }
 
-.topicHeader .topicCreateTime{
+.topicHeader .topicCreateTime {
     display: block;
     margin-left: 20px;
 }
-.topicContext #head-picture{
+
+.topicContext #head-picture {
     margin-left: 5px;
     margin-top: 5px;
 }
 
-.topicContext .blog-person-information{
+.topicContext .blog-person-information {
     padding-left: 60px;
 }
 
-
-.topicContext .main-context{
+.topicContext .main-context {
     font-family: '宋体';
     margin-left: 60px;
     margin-bottom: 10px;
 }
 
-.topicContext .glyphicon-chevron-down{
+.topicContext .glyphicon-chevron-down {
     font-size: 10px;
     color: #918ea5;
-    position:relative;
+    position: relative;
     left: 88%;
     top: 15px;
 }
 
-.topicContext .glyphicon-chevron-down:hover{
+.topicContext .glyphicon-chevron-down:hover {
     font-size: 10px;
-    cursor:pointer;
+    cursor: pointer;
     color: #CC560E;
-    position:relative;
+    position: relative;
     left: 88%;
     top: 15px;
 }
 
-.topicContext .dropdown-menu{
-    position:absolute;
+.topicContext .dropdown-menu {
+    position: absolute;
     left: 80%;
     top: 27px;
 }

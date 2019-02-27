@@ -1,0 +1,237 @@
+<template name="adminLogin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-horizontal">
+                    <span class="heading">管理员登录</span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputUser" placeholder="用户名">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </div>
+                    <div class="form-group help">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="密　码">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        <a href="#" class="fa fa-question-circle"></a>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default adminLoginBtn">登录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="admin">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#adminHeader" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Admin</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="adminHeader">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">管理 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="adminUser">用户</a></li>
+                            <li><a href="#" class="adminBlog">微博</a></li>
+                            <li><a href="#" class="adminTopic">话题</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;管理员 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="adminLogout">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-3">
+                    <div class="list-group">
+                        <span href="#" class="list-group-item active">
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;管理
+                        </span>
+                        <a href="#" class="list-group-item adminUser">用户</a>
+                        <a href="#" class="list-group-item adminBlog" >微博</a>
+                        <a href="#" class="list-group-item adminTopic" >话题</a>
+                        <span href="#" class="list-group-item active">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;个人
+                        </span>
+                        <a href="#" class="list-group-item adminLogout">退出</a>
+                    </div>
+
+            </div>
+            <div class="col-md-9">
+                {{>yield}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<!--管理用户模板-->
+<template name="adminUser">
+    <div class="page-header">
+        <h2>用户<small>所有用户</small></h2>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>名字</th>
+            <th>电子邮件</th>
+            <th>角色</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each allUser}}
+            <tr class="list-users">
+                <td>{{_id}}</td>
+                <td>{{username}}</td>
+                <td>{{#each emails}}{{this.address}}{{/each}}</td>
+                <td>普通用户</td>
+                {{#if userStatus profile.status}}
+                <td><span class="label label-success">正常</span></td>
+                    {{else}}
+                    <td><span class="label label-danger">停封</span></td>
+                    {{/if}}
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-danger deleteUser" data-id="{{_id}}">删除</button>
+                        {{#if userStatus profile.status}}
+                            <button type="button" class="btn btn-warning closeUser" data-id="{{_id}}">封停</button>
+                            {{else}}
+                            <button type="button" class="btn btn-success uncloseUser" data-id="{{_id}}">解封</button>
+                        {{/if}}
+
+
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+
+
+
+        </tbody>
+    </table>
+</template>
+<!--管理用户模板结束-->
+
+
+<!--管理微博模板-->
+<template name="adminBlog">
+    <div class="page-header">
+        <h2>微博<small>所有微博</small></h2>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>微博内容</th>
+            <th>发布者ID</th>
+            <th>发布者名字</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each allBlog}}
+            <tr class="list-users">
+                <td>{{_id}}</td>
+                <td>{{blogContext}}</td>
+                <td>{{user_id}}</td>
+                <td>{{userName}}</td>
+                <td>{{createTime}}</td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-danger deleteBlog" data-id="{{_id}}">删除</button>
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+
+
+
+        </tbody>
+    </table>
+</template>
+<!--管理微博模板结束-->
+
+<!--管理话题模板-->
+<template name="adminTopic">
+    <div class="page-header">
+        <h2>话题<small>所有话题</small></h2>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>话题名称</th>
+            <th>主持人ID</th>
+            <th>主持人</th>
+            <th>创建时间</th>
+            <th>主持人候选人</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each allTopic}}
+            <tr class="list-users">
+                <td>{{_id}}</td>
+                <td>#{{name}}#</td>
+                <td>{{hostID}}</td>
+                <td>{{hostName}}</td>
+                <td>{{createTime}}</td>
+                <td><button type="button" class="btn btn-default btn-xs catHostCandidatePerson" data-toggle="modal" data-target="#modalCandidatePerson" data-id="{{_id}}">查看</button></td>
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-danger deleteTopic" data-id="{{_id}}">删除</button>
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+
+
+
+        </tbody>
+    </table>
+    <div class="modal fade" id="modalCandidatePerson" tabindex="-1" role="dialog" aria-labelledby="modalCandidatePerson">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">候选人名称</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        {{#each allCandidatePerson}}
+                        <li class="list-group-item">{{username}}<button type="button" class="btn btn-default btn-xs approveCandidatePerson" data-id="{{id}}">同意</button> </li>
+                        {{/each}}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+<!--管理话题模板结束-->

@@ -53,7 +53,13 @@ Router.route('/admin/',function () {
     this.layout('');
     if(Session.equals('isAdminLogin',1)){
         this.layout('admin');
-        this.render('adminUser');
+        if(Session.equals('isAdminUser',1)){
+            this.render('adminUser');
+        }else if(Session.equals('isAdminBlog',1)){
+            this.render('adminBlog');
+        }else if(Session.equals('isAdminTopic',1)){
+            this.render('adminTopic');
+        }
     }else{
         this.render('adminLogin');
     }

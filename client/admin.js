@@ -2,9 +2,8 @@ import {Template} from 'meteor/templating';
 import moment from "moment";
 import {Meteor} from "meteor/meteor";
 import {topics} from "../collections/topic";
-import '../static/css/bootstrap-table.min.css';
-import '../static/js/bootstrap-table.min';
-import '../static/js/bootstrap-table-zh-CN.min';
+import {Session} from "meteor/session";
+import {_} from "meteor/underscore";
 
 Template.adminLogin.events({
     'click .adminLoginBtn': function (event) {
@@ -47,7 +46,17 @@ Template.admin.events({
 //用户管理
 Template.adminUser.helpers({
     allUser() {
-        return Meteor.users.find().fetch();
+
+        Meteor.call("findUser",function (err,result) {
+            if(err){
+                console.log(err)
+            }else{
+                Session.set('adminUserList',result);
+            }
+        });
+        var user=Session.get("adminUserList");
+        delete Session.keys["adminUserList"];
+        return user;
     },
     userStatus(status) {
         return status == "normal";
@@ -59,6 +68,26 @@ Template.adminUser.events({
     "click .deleteUser": function (event) {
         const userID = $(event.currentTarget).data("id");
         Meteor.users.remove({_id: userID});
+        var blog = blogs.find({"user_id":userID}).fetch();
+        var attention=Meteor.users.find({"profile.attentions":userID}).fetch();
+        for(var i=0;i<attention.length;i++){
+            Meteor.users.update(attention[i]._id, {$pull: {"profile.attentions": userID}});
+        }
+        var fan=Meteor.users.find({"profile.fans":userID}).fetch();
+        for(var i=0;i<fan.length;i++){
+            Meteor.users.update(fan[i]._id, {$pull: {"profile.fans": userID}});
+        }
+        for (var i = 0, len = blog.length; i < len; i++) {
+            _.each(blog.imgs,function (element, index, list) {
+                Meteor.call("deleteFile",element,function (err) {
+                    if (err) console.log(err);
+                })
+            });
+            if(blog[i].blogContext.indexOf('#',blog[i].blogContext.indexOf('#')+1)>0){
+                Meteor.call('deleteTopic',blog[i].blogContext,blog[i]._id);
+            }
+            blogs.remove({_id:blog[i]._id});
+        }
     },
     "click .closeUser": function (event) {
         const userID = $(event.currentTarget).data("id");

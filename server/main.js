@@ -79,6 +79,9 @@ Meteor.methods({
             }
         }
 
+    },
+    findUser:function(){
+        return Meteor.users.find({}).fetch();
     }
 
 });
@@ -106,7 +109,7 @@ Meteor.users.allow({
     }
 });
 
-// Meteor.publish('users', function() {
-//     return Meteor.users.find({}, {fields:{emails: true}});
-// });
+Meteor.publish('users', function() {
+    return Meteor.users.find({}, {fields:{emails: true}});
+});
 

@@ -107,7 +107,7 @@
             <tr class="list-users">
                 <td>{{_id}}</td>
                 <td>{{username}}</td>
-                <td>{{#each emails}}{{this.address}}{{/each}}</td>
+                <td>{{#with emails}}{{this.[0].address}}{{/with}}</td>
                 <td>普通用户</td>
                 {{#if userStatus profile.status}}
                 <td><span class="label label-success">正常</span></td>

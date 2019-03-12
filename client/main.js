@@ -74,6 +74,8 @@ Template.publicBlog.events({
                         reader1.readAsBinaryString(imgs.files[i]);
                     }
                     if (i == imgs.files.length) {
+                        //换行
+                        blogContext=blogContext.replace(/(\r\n)|(\n)/g,'<br>');
                         // 把微博内容数据插入数据库
                         var blogID = blogs.insert({
                             user_id: Meteor.userId(),
@@ -91,6 +93,8 @@ Template.publicBlog.events({
                 };
                 reader1.readAsBinaryString(imgs.files[0]);
             }else{
+                //换行
+                blogContext=blogContext.replace(/(\r\n)|(\n)/g,'<br>');
                 var blogID = blogs.insert({
                     user_id: Meteor.userId(),
                     createTime: time,
@@ -312,6 +316,7 @@ function guid() {
 
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
+
 
 
 

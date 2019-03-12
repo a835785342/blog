@@ -71,10 +71,10 @@
                                 <small style="color: #bababa">{{createTime}}</small>
                             </div>
                             <div class="main-context" style="">
-                                <p>{{blogContext}}</p>
+                                <p>{{{blogContext}}}</p>
                                 <div class="container-fluid" style="margin-left: -30px">
                                     {{#each imgs}}
-                                        <img class="blog-picture col-md-4" src="{{this}}" width="150px" height="150px" onerror="javascript:this.src='imgs/load-picture.gif';"/>
+                                        <img class="blog-picture col-md-4" src="{{this}}" width="150px"  onerror="javascript:this.src='imgs/load-picture.gif';"/>
                                     {{/each}}
                                 </div>
                             </div>

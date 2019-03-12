@@ -213,3 +213,12 @@ function getTopicName(blogContext) {
     const topicName=re.exec(blogContext);
     return topicName[0];
 }
+
+//获取guid方法
+function guid() {
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}

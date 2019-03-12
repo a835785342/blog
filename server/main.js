@@ -80,7 +80,7 @@ Meteor.methods({
         }
 
     },
-    findUser:function(){
+    findUser: function () {
         return Meteor.users.find({}).fetch();
     }
 
@@ -93,7 +93,10 @@ Accounts.onCreateUser(function (options, user) {
 });
 
 Accounts.validateLoginAttempt(function (options) {
-    if (options.user.profile.status != 'normal') {
+    if (options.user === undefined || options.user === null) {
+        throw new Meteor.Error("error", "找不到此用户");
+    } else if (options.user.profile.status != 'normal') {
+
         throw new Meteor.Error("error", "你账号已被停封");
     } else {
         return true;
@@ -109,7 +112,8 @@ Meteor.users.allow({
     }
 });
 
-Meteor.publish('users', function() {
-    return Meteor.users.find({}, {fields:{emails: true}});
+Meteor.publish('users', function () {
+    return Meteor.users.find({}, {fields: {emails: true}});
 });
+
 

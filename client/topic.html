@@ -4,7 +4,7 @@
             <div class="grid-item">
                 <!--<small class="latestTime">2018-12-30</small>-->
                 <h4>{{name}}</h4>
-                {{currentTopicBlogContext}}
+                {{{currentTopicBlogContext}}}
                 {{#if hasImg hasImage }}
                     <img src="{{currentTopicBlogImg}}" width="200px">
                 {{/if}}
@@ -57,27 +57,42 @@
 
                 </div>
             {{else}}
-                <div class="dropdown" style="visibility: hidden">
+                {{#if isHost}}
+                    <div class="dropdown" style="visibility: visible">
                     <span class="glyphicon glyphicon-chevron-down dropdown-toggle blog-assist" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="true"></span>
-                    <ul class="dropdown-menu" aria-labelledby="blog-assist">
-                        <li><a href="#" class="deleteBlog-a" data-toggle="modal" data-target=".deleteBlog-modal"
-                               data-blogid="{{_id}}">删除微博</a></li>
-                        <li><a href="#" class="updateBlog-a" data-toggle="modal" data-target=".updateBlog-modal"
-                               data-blogid="{{_id}}">更新微博</a></li>
-                    </ul>
+                        <ul class="dropdown-menu" aria-labelledby="blog-assist">
+                            <li><a href="#" class="deleteBlog-a" data-toggle="modal" data-target=".deleteBlog-modal"
+                                   data-blogid="{{_id}}">删除微博</a></li>
+                            <li><a href="#" class="updateBlog-a" data-toggle="modal" data-target=".updateBlog-modal"
+                                   data-blogid="{{_id}}">更新微博</a></li>
+                        </ul>
 
-                </div>
+                    </div>
+                {{else}}
+                    <div class="dropdown" style="visibility: hidden">
+                    <span class="glyphicon glyphicon-chevron-down dropdown-toggle blog-assist" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="true"></span>
+                        <ul class="dropdown-menu" aria-labelledby="blog-assist">
+                            <li><a href="#" class="deleteBlog-a" data-toggle="modal" data-target=".deleteBlog-modal"
+                                   data-blogid="{{_id}}">删除微博</a></li>
+                            <li><a href="#" class="updateBlog-a" data-toggle="modal" data-target=".updateBlog-modal"
+                                   data-blogid="{{_id}}">更新微博</a></li>
+                        </ul>
+
+                    </div>
+                {{/if}}
             {{/if}}
+
             <div class="blog-person-information">
                 <strong><a href="/personalCenter/{{user_id}}">{{userName}}</a></strong><br>
                 <small style="color: #bababa">{{createTime}}</small>
             </div>
             <div class="main-context" style="">
-                <p>{{blogContext}}</p>
+                <p>{{{blogContext}}}</p>
                 <div class="container-fluid" style="margin-left: -30px">
                     {{#each imgs}}
-                        <img class="blog-picture col-md-4" src="{{this}}" width="150px" height="150px"
+                        <img class="blog-picture col-md-4" src="{{this}}" width="150px"
                              onerror="javascript:this.src='imgs/load-picture.gif';"/>
                     {{/each}}
                 </div>

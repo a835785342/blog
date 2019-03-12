@@ -138,6 +138,10 @@ Template.adminTopic.events({
     "click .deleteTopic": function (event) {
         const topicID = $(event.currentTarget).data("id");
         let users = Meteor.users.find({'profile.followTopics': {"$in": [topicID]}}).fetch();
+        let topic=topics.findOne({_id:topicID});
+        for(var i=0;i<topic.ablogID.length;i++){
+            blogs.remove({_id:topic.ablogID[i]});
+        }
         for (let i = 0; i < users.length; i++) {
             Meteor.users.update({_id: users[i]._id}, {$pull: {"profile.followTopics": topicID}});
         }

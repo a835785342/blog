@@ -47,14 +47,14 @@ Template.admin.events({
 Template.adminUser.helpers({
     allUser() {
 
-        Meteor.call("findUser",function (err,result) {
-            if(err){
+        Meteor.call("findUser", function (err, result) {
+            if (err) {
                 console.log(err)
-            }else{
-                Session.set('adminUserList',result);
+            } else {
+                Session.set('adminUserList', result);
             }
         });
-        var user=Session.get("adminUserList");
+        var user = Session.get("adminUserList");
         delete Session.keys["adminUserList"];
         return user;
     },
@@ -68,25 +68,25 @@ Template.adminUser.events({
     "click .deleteUser": function (event) {
         const userID = $(event.currentTarget).data("id");
         Meteor.users.remove({_id: userID});
-        var blog = blogs.find({"user_id":userID}).fetch();
-        var attention=Meteor.users.find({"profile.attentions":userID}).fetch();
-        for(var i=0;i<attention.length;i++){
+        var blog = blogs.find({"user_id": userID}).fetch();
+        var attention = Meteor.users.find({"profile.attentions": userID}).fetch();
+        for (var i = 0; i < attention.length; i++) {
             Meteor.users.update(attention[i]._id, {$pull: {"profile.attentions": userID}});
         }
-        var fan=Meteor.users.find({"profile.fans":userID}).fetch();
-        for(var i=0;i<fan.length;i++){
+        var fan = Meteor.users.find({"profile.fans": userID}).fetch();
+        for (var i = 0; i < fan.length; i++) {
             Meteor.users.update(fan[i]._id, {$pull: {"profile.fans": userID}});
         }
         for (var i = 0, len = blog.length; i < len; i++) {
-            _.each(blog.imgs,function (element, index, list) {
-                Meteor.call("deleteFile",element,function (err) {
+            _.each(blog.imgs, function (element, index, list) {
+                Meteor.call("deleteFile", element, function (err) {
                     if (err) console.log(err);
                 })
             });
-            if(blog[i].blogContext.indexOf('#',blog[i].blogContext.indexOf('#')+1)>0){
-                Meteor.call('deleteTopic',blog[i].blogContext,blog[i]._id);
+            if (blog[i].blogContext.indexOf('#', blog[i].blogContext.indexOf('#') + 1) > 0) {
+                Meteor.call('deleteTopic', blog[i].blogContext, blog[i]._id);
             }
-            blogs.remove({_id:blog[i]._id});
+            blogs.remove({_id: blog[i]._id});
         }
     },
     "click .closeUser": function (event) {
@@ -114,6 +114,15 @@ Template.adminBlog.helpers({
 Template.adminBlog.events({
     "click .deleteBlog": function (event) {
         const blogID = $(event.currentTarget).data("id");
+
+        let topics_arr = topics.find({'ablogID': {"$in": [blogID]}}).fetch();
+        let users_arr = Meteor.users.find({'profile.blogs': {"$in": [blogID]}}).fetch();
+        for (let i = 0; i < topics_arr.length; i++) {
+            topics.update({_id: topics_arr[i]._id}, {$pull: {"ablogID": blogID}});
+        }
+        for (let i = 0; i < users_arr.length; i++) {
+            Meteor.users.update({_id: users_arr[i]._id}, {$pull: {"profile.blogs": blogID}});
+        }
         blogs.remove({_id: blogID});
     }
 });
@@ -138,9 +147,9 @@ Template.adminTopic.events({
     "click .deleteTopic": function (event) {
         const topicID = $(event.currentTarget).data("id");
         let users = Meteor.users.find({'profile.followTopics': {"$in": [topicID]}}).fetch();
-        let topic=topics.findOne({_id:topicID});
-        for(var i=0;i<topic.ablogID.length;i++){
-            blogs.remove({_id:topic.ablogID[i]});
+        let topic = topics.findOne({_id: topicID});
+        for (var i = 0; i < topic.ablogID.length; i++) {
+            blogs.remove({_id: topic.ablogID[i]});
         }
         for (let i = 0; i < users.length; i++) {
             Meteor.users.update({_id: users[i]._id}, {$pull: {"profile.followTopics": topicID}});
